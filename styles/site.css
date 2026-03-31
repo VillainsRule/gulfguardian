@@ -1,0 +1,360 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background: #000000;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#game-container {
+  width: 100vw;
+  height: 100dvh;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  touch-action: none;
+  z-index: 1;
+}
+
+@supports (height: 100dvh) {
+  #game-container {
+    height: 100dvh;
+  }
+}
+
+#game-container canvas {
+  display: block;
+  touch-action: none;
+}
+
+/* Landscape orientation prompt — only shown on touch devices in portrait */
+#rotate-prompt {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #000000ee;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: 'Share Tech Mono', monospace;
+  color: #00ff41;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+#rotate-prompt svg {
+  animation: rotate-hint 2s ease-in-out infinite;
+}
+
+@keyframes rotate-hint {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(90deg); }
+}
+
+/* Rotate prompt removed — mobile shows title screen with "play on PC" message */
+
+.privacy-link {
+  position: fixed;
+  bottom: 4px;
+  right: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: #333;
+  text-decoration: none;
+  z-index: 9999;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.privacy-link:hover {
+  opacity: 1;
+  color: #00ff41;
+}
+
+@media (max-width: 768px) {
+  .privacy-link {
+    font-size: 14px;
+    bottom: 8px;
+  }
+}
+
+.privacy-footer {
+  position: relative;
+  background: #0a0a0a;
+  color: #b0b0b0;
+  font-family: 'Share Tech Mono', monospace;
+  line-height: 1.7;
+  padding: 3rem 1rem 2rem;
+  border-top: 1px solid #1a1a1a;
+}
+
+.privacy-footer-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.privacy-footer h2 {
+  color: #00ff41;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.privacy-footer h3 {
+  color: #00cc33;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.privacy-footer p,
+.privacy-footer li {
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.privacy-footer ul {
+  padding-left: 1.5rem;
+}
+
+.privacy-footer a {
+  color: #00ff41;
+}
+
+.privacy-footer .updated {
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+/* ── Info & FAQ Section ── */
+
+.info-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-top: 100vh;
+  background: #0a0a0a;
+  font-family: 'Share Tech Mono', monospace;
+  color: #b0b0b0;
+  line-height: 1.7;
+}
+
+.info-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.info-section {
+  padding: 3rem 0;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+}
+
+.info-section h2 {
+  color: #00ff41;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1.5rem;
+}
+
+.info-section h3 {
+  color: #00cc33;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.info-section p {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.info-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-section ul li {
+  font-size: 0.85rem;
+  padding: 0.4rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.info-section ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #00ff41;
+}
+
+/* Controls table */
+.controls-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.controls-grid dt {
+  color: #00ff41;
+  white-space: nowrap;
+}
+
+.controls-grid dd {
+  color: #b0b0b0;
+  margin: 0;
+}
+
+/* FAQ items using native <details> */
+.faq-item {
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item summary {
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: #ccc;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: color 0.2s;
+  user-select: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::before {
+  content: '▸';
+  color: #00ff41;
+  font-size: 0.85rem;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.faq-item[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.faq-item summary:hover {
+  color: #00ff41;
+}
+
+.faq-answer {
+  padding: 0 0 1.25rem 1.6rem;
+  font-size: 0.85rem;
+  color: #999;
+  line-height: 1.7;
+}
+
+.faq-answer p {
+  margin-bottom: 0.5rem;
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: #00ff41;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.4;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+
+@media (max-width: 768px) {
+  .scroll-hint {
+    font-size: 16px;
+    letter-spacing: 3px;
+    bottom: 12px;
+  }
+}
+
+.scroll-hint span {
+  display: block;
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+body.scrolled-past-fold .scroll-hint,
+body.scrolled-past-fold .privacy-link,
+body.game-started .scroll-hint,
+body.game-started .privacy-link {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Info section link styling */
+.info-section a {
+  color: #00ff41;
+  text-decoration: none;
+}
+
+.info-section a:hover {
+  text-decoration: underline;
+}
+
+/* Footer copyright */
+.site-footer {
+  position: relative;
+  z-index: 2;
+  background: #0a0a0a;
+  border-top: 1px solid #1a1a1a;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: #444;
+}
+
+.site-footer a {
+  color: #00ff41;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
